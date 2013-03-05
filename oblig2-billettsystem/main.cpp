@@ -11,6 +11,16 @@
  28.02.2013      LMS         La inn menysystem
  28.02.2013      MB          Ny forestilling - navn
 
+
+
+ TIPS:
+ //skriver ut æ, ø, å;
+cout << (char)145 << (char)155 << (char)134 << endl;
+
+//skriver ut Æ, Ø, Å;
+cout << (char)146 << (char)157 << (char)143 << endl;
+
+
 */
 
 #include <iostream>
@@ -66,7 +76,7 @@ int meny()
     
 	cout << "Aktuell forestilling: " << forestilling << endl;
 	cout << "1. Ny forestilling" << endl;
-	cout << "2. Kjøp billetter" << endl;
+	cout << "2. Kj" << (char)155 << "p billetter" << endl;
 	cout << "3. Vis ledige seter" << endl;
 	cout << "4. Vis billettinntekter for denne forestillingen" << endl;
 	cout << "0. Avslutt" << endl;
@@ -81,9 +91,9 @@ void nyForestilling()
    
     //bekrefte ny forestilling
     string bekreftelse;
-    cout << endl << "Ønsker du å sette opp ny forestilling?" << endl;
+    cout << endl << (char)157 << "nsker du " << (char)134 << " sette opp ny forestilling?" << endl;
     cout << "Dette vil slette alt av tidligere data." << endl;
-    cout << "Bekreft med å skrive \"bekreft\":" << endl;
+    cout << "Bekreft med " << (char)134 << " skrive \"bekreft\":" << endl;
     cin >> bekreftelse;
     if (bekreftelse != "bekreft")
     {
@@ -150,7 +160,7 @@ void billettKjop()
         
         cout << "Selge Rad " << rad << " sete " << sete << " ?" << endl;
         string bekreftelse_kjop;
-        cout << "Bekreft med å skrive \"bekreft\":" << endl;
+        cout << "Bekreft med " << (char)134 << " skrive \"bekreft\":" << endl;
         cin >> bekreftelse_kjop;
         if (bekreftelse_kjop != "bekreft")
         {
@@ -227,7 +237,7 @@ int main()
                 nyForestilling();
                 break;
             case 2:
-                cout << "Du valgte '2. Kjøp billetter'" << endl;
+                cout << "Du valgte '2. Kj" << (char)155 << "p billetter'" << endl;
                 billettKjop();
                 break;
             case 3:
