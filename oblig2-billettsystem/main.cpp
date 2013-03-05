@@ -228,6 +228,7 @@ int main()
 {
 	valg = meny();
     
+
 	while (valg != 0)
 	{
 		switch (valg)

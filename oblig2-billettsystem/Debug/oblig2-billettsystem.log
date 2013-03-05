@@ -1,14 +1,13 @@
-﻿Build started 05.03.2013 23:36:32.
+﻿Build started 05.03.2013 23:49:28.
      1>Project "C:\Users\Mikael\workspace\Billettsystem-\oblig2-billettsystem\oblig2-billettsystem.vcxproj" on node 2 (build target(s)).
-     1>PrepareForBuild:
-         Creating directory "C:\Users\Mikael\workspace\Billettsystem-\Debug\".
-       InitializeBuildStatus:
+     1>InitializeBuildStatus:
          Creating "Debug\oblig2-billettsystem.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          e:\Programmer\vb 2010 express\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
        Link:
          e:\Programmer\vb 2010 express\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\oblig2-billettsystem.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.lib" /MACHINE:X86 Debug\main.obj
+         LINK : C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.exe not found or not built by the last incremental link; performing full link
          oblig2-billettsystem.vcxproj -> C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.exe
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Mikael\workspace\Billettsystem-\Debug\oblig2-billettsystem.exe;#1" /manifest "Debug\oblig2-billettsystem.exe.intermediate.manifest"
@@ -19,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.41
+Time Elapsed 00:00:01.31
