@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oblig2-billettsystem", "oblig2-billettsystem\oblig2-billettsystem.vcxproj", "{1573F934-AE08-4239-98D7-6329AF552342}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1573F934-AE08-4239-98D7-6329AF552342}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1573F934-AE08-4239-98D7-6329AF552342}.Debug|Win32.Build.0 = Debug|Win32
+		{1573F934-AE08-4239-98D7-6329AF552342}.Release|Win32.ActiveCfg = Release|Win32
+		{1573F934-AE08-4239-98D7-6329AF552342}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
