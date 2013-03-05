@@ -2,24 +2,6 @@
  Tittel                  : Billettsystem
  Kort beskrivelse        : Program som simulerer et billettsystem
  Skrevet av              : Lisa Marie Sørensen(LMS) og Mikael Bendiksen(MB)
- Dato                    : 28.02.2013
- 
- Endringshistorikk:
- 
- Endret dato:    Endret av:	Endring:
- 28.02.2013      LMS         La inn menysystem
- 28.02.2013      MB          Ny forestilling - navn
-
-
-
- TIPS:
- //skriver ut æ, ø, å;
-cout << (char)145 << (char)155 << (char)134 << endl;
-
-//skriver ut Æ, Ø, Å;
-cout << (char)146 << (char)157 << (char)143 << endl;
-
-
 */
 
 #include <iostream>
@@ -36,7 +18,7 @@ string forestilling = "?";
 
 int antall_redusertPris;
 int antall_fullPris;
-int antall_bilett;
+int antall_billett;
 int valg;
 const int RADER = 16;
 const int KOLONNER = 31;
@@ -63,12 +45,7 @@ string sal[ RADER ][ KOLONNER ] =
     {"Rad 15\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"}
 };
 
-/*
- Utf¯rer	: Skriver ut meny og lar brukeren velge menypunkt
- Inndata	: Valg
- Returnerer : Valg
- */
-
+// Skriver ut meny og lar brukeren velge menypunkt
 int meny()
 {
 	valg = 0;
@@ -85,10 +62,11 @@ int meny()
 	return valg;
 }
 
+// Lar bruker lage en ny forestilling, da slettes alt av tidligere lagret data
 void nyForestilling()
 {
    
-    //bekrefte ny forestilling
+    // Bekrefte ny forestilling
     string bekreftelse;
     cout << endl << (char)157 << "nsker du " << (char)134 << " sette opp ny forestilling?" << endl;
     cout << "Dette vil slette alt av tidligere data." << endl;
@@ -101,7 +79,7 @@ void nyForestilling()
     else
     {
     
-        // nullstiller kinosalen
+        // Nullstiller kinosalen
         for (int i=1; i < RADER; i++)
         {
             for (int j=1; j<KOLONNER; j++)
@@ -115,33 +93,36 @@ void nyForestilling()
         //getline(cin,forestilling);
         //cin.ignore();
     
-        // tømmer priskalkulasjon
+        // Tømmer priskalkulasjon
         antall_redusertPris = 0;
         antall_fullPris = 0;
-        antall_bilett = 0;
+        antall_billett = 0;
         
         for(int i=1; i < RADER; i++)
         {
             inntekt_rad[i] = 0;
         }
     
-        // leser inn nytt navn for forestilling
+        // Leser inn nytt navn for forestilling
         cin >> forestilling;
         cout << endl;
     }
 }
 
+// Lar bruker kjøpe billett til gitt forestilling
 void billettKjop()
 {
     int rad;
     int sete;
-    char halv_pris;
+    char redusert_pris;
     
+	// Lar brukeren velge sete
     cout << endl << "Velg rad:" << endl;
     cin >> rad;
     cout << "Velg sete" << endl;
     cin >> sete;
     
+	// Skjekker om valgt sete allerede er solgt
     string checker = sal[rad][sete];
     
     if (checker == "#")
@@ -150,13 +131,13 @@ void billettKjop()
     }
     else
     {
-        
-        
+        // Spør bruker om hvilken pris sete skal selges for
         cout << "Fullpris: 90,-" << endl;
         cout << "Redusert pris: 60,-" << endl;
         cout << "Redusert pris? (y/n)" << endl;
-        cin >> halv_pris;
+        cin >> redusert_pris;
         
+		// Bekreftelse av kjøp
         cout << "Selge Rad " << rad << " sete " << sete << " ?" << endl;
         string bekreftelse_kjop;
         cout << "Bekreft med " << (char)134 << " skrive \"bekreft\":" << endl;
@@ -167,14 +148,15 @@ void billettKjop()
         }
         else
         {
+			// Legger beløpet inn i inntekt for aktuell rad
             sal[rad][sete] = "#";
-            if (halv_pris == 'y')
+            if (redusert_pris == 'y')
             {
                 int temp_pris = inntekt_rad[rad];
                 temp_pris = 60 + temp_pris;
                 inntekt_rad[rad] = temp_pris;
                 antall_redusertPris++;
-                antall_bilett++;
+                antall_billett++;
             }
             else
             {
@@ -182,15 +164,17 @@ void billettKjop()
                 temp_pris = 90 + temp_pris;
                 inntekt_rad[rad] = temp_pris;
                 antall_fullPris++;
-                antall_bilett++;
+                antall_billett++;
             }
         }
     }
     cout << endl;
 }
 
+// Viser hvilke seter som er opptatt/ledig
 void ledigeSeter()
 {
+	// Løkke som printer ut alle rader og kolonner
 	cout << endl;
 	for (int i=0; i < RADER; i++)
 	{
@@ -204,15 +188,17 @@ void ledigeSeter()
 	
 }
 
+// Viser billettinntekter for hver rad og totalt.
 void billettInntekter()
 {
     cout << endl;
-    cout << "Antall solgte biletter: " << antall_bilett << endl;
-    cout << "Antall redusert pris biletter: " << antall_redusertPris << endl;
-    cout << "Antall full pris biletter: " << antall_fullPris << endl;
+    cout << "Antall solgte billetter: " << antall_billett << endl;
+    cout << "Antall redusert pris billetter: " << antall_redusertPris << endl;
+    cout << "Antall full pris billetter: " << antall_fullPris << endl;
     cout << endl;
     int totalInntekt = 0;
     
+	// Løkke som går igjennom alle rader og beregner inntekt
     for (int i=1; i<RADER; i++)
     {
         cout << "Rad" << i << "\t" << inntekt_rad[i] << "kr." << endl;
@@ -223,11 +209,12 @@ void billettInntekter()
     cout << "Total \t" << totalInntekt << "kr." << endl << endl;
 }
 
+// Skjekker hvilket menypunkt som er valgt og kjører igang funksjonen for denne
 int main()
 {
 	valg = meny();
     
-
+	// Løkke som lar bruker velge menypunkt
 	while (valg != 0)
 	{
 		switch (valg)
