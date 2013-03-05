@@ -1,5 +1,4 @@
 /*
-
  Tittel                  : Billettsystem
  Kort beskrivelse        : Program som simulerer et billettsystem
  Skrevet av              : Lisa Marie Sørensen(LMS) og Mikael Bendiksen(MB)
