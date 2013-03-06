@@ -1,3 +1,5 @@
+// test på lagring og skriving til fil
+
 /*
  Tittel                  : Billettsystem
  Kort beskrivelse        : Program som simulerer et billettsystem
@@ -7,57 +9,177 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
-int meny();
-void nyForestilling();
-void billettKjop();
-void ledigeSeter();
-void billettInntekter();
+
 string forestilling = "?";
 
 int antall_redusertPris;
 int antall_fullPris;
 int antall_billett;
 int valg;
+int totalInntekt;
 const int RADER = 16;
 const int KOLONNER = 31;
 
+const string salData = "salData.txt";
+const string inntektData = "inntektData.txt";
+const string forestillings_navn = "forNavn.txt";
+const string radInntektData = "radInntektData.txt";
+
 int inntekt_rad[16];
 
-string sal[ RADER ][ KOLONNER ] =
+
+string sal[ RADER ][ KOLONNER ];/* =
 {
-    {"     \t", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
-    {"Rad 1\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 2\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 3\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 4\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 5\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 6\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 7\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 8\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 9\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 10\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 11\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 12\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 13\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 14\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
-    {"Rad 15\t", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"}
+    {"-----", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
+    {"Rad01", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad02", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad03", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad04", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad05", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad06", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad07", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad08", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad09", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad10", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad11", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad12", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad13", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad14", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"},
+    {"Rad15", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"}
 };
+
+*/
+
+void save()
+{
+	//inntektfil
+	ofstream utfil;	
+	utfil.open(inntektData.c_str(), ios::out);
+	utfil << antall_redusertPris << " " << antall_fullPris << " " << antall_billett << endl;
+	utfil.close();
+
+	// salfil	
+	utfil.open(salData.c_str(), ios::out); 
+	
+	for (int i=0; i < RADER; i++)
+	{
+		for (int j=0; j<KOLONNER; j++)
+		{
+			utfil << sal[i][j] << endl;
+		}	
+	}
+	utfil.close();
+
+	// salinntekt	
+	utfil.open(radInntektData.c_str(), ios::out); 
+	
+	for (int i=1; i<RADER; i++)
+    {
+        utfil << inntekt_rad[i] << endl;     
+    }
+	utfil.close();
+
+
+	//forestillingsnavnfil		
+	utfil.open(forestillings_navn.c_str(), ios::out);
+	utfil << forestilling;
+	utfil.close();
+	
+}//slutten på lagring
+
+
+void open()
+{
+	ifstream innfil;	//deklarerer fil-variabelen/objektet
+	string tekstlinje;
+
+	//inntektfil
+	innfil.open(inntektData.c_str(), ios::in);
+	if (innfil.fail()) {
+		cout << "Det oppsto en feil ved " << (char)134 << "pning av fila, kontroller at fila \"inntektData.txt\" eksisterer!" << endl;
+	} 
+	else 
+	{
+		innfil >> antall_redusertPris >> antall_fullPris >> antall_billett;
+	}
+	innfil.close();
+
+	//radinntektfil
+	innfil.open(radInntektData.c_str(), ios::in);
+	if (innfil.fail()) {
+		cout << "Det oppsto en feil ved " << (char)134 << "pning av fila, kontroller at fila \"radInntektData.txt\" eksisterer!" << endl;
+	} 
+	else 
+	{
+		while( !innfil.eof() )
+		{
+			for (int i=1; i<RADER; i++)
+			{
+				innfil >> inntekt_rad[i];     
+			}
+		}
+	}
+	innfil.close();
+
+	//salfil
+	cout << setiosflags(ios::fixed | ios::showpoint);
+	innfil.open(salData.c_str(), ios::in);
+	if (innfil.fail()) {
+		cout << "Det oppsto en feil ved " << (char)134 << "pning av fila, kontroller at fila \"salData.txt\" eksisterer!" << endl;
+	} 
+	else 
+	{
+		while( !innfil.eof() )
+		{
+			for(int i = 0; i < RADER; ++i)
+			{
+				for(int j = 0; j < KOLONNER; ++j)
+				{
+					innfil >> sal[i][j];
+					//cout << sal[i][j] << endl;
+				}	 
+			}		
+		}
+	}
+	innfil.close();
+	
+	// forestillingsnavnfil
+	
+	innfil.open(forestillings_navn.c_str(), ios::in);
+	if (innfil.fail()) {
+		cout << "Det oppsto en feil ved " << (char)134 << "pning av fila, kontroller at fila \"forNavn.txt\" eksisterer!" << endl;
+	} else {
+		//Går i en løkke, leser hvert ord i hver linje inn i programvariablene nr, navn, alder og inntekt:
+		while (!innfil.eof()) {
+			//Ingen begrensninger i antall tegn per linje:
+			getline(innfil, forestilling, '\n');
+			 
+		}
+		innfil.close();
+	}
+
+	
+}//slutten på avlesninger
 
 // Skriver ut meny og lar brukeren velge menypunkt
 int meny()
 {
+	
 	valg = 0;
     
 	cout << "Aktuell forestilling: " << forestilling << endl;
+	cout << endl;
 	cout << "1. Ny forestilling" << endl;
 	cout << "2. Kj" << (char)155 << "p billetter" << endl;
 	cout << "3. Vis ledige seter" << endl;
 	cout << "4. Vis billettinntekter for denne forestillingen" << endl;
 	cout << "0. Avslutt" << endl;
-    
+    cout << endl;
 	cout << "Ditt valg: ";
+	cout << endl;
 	cin >> valg;
 	return valg;
 }
@@ -65,7 +187,6 @@ int meny()
 // Lar bruker lage en ny forestilling, da slettes alt av tidligere lagret data
 void nyForestilling()
 {
-   
     // Bekrefte ny forestilling
     string bekreftelse;
     cout << endl << (char)157 << "nsker du " << (char)134 << " sette opp ny forestilling?" << endl;
@@ -78,7 +199,6 @@ void nyForestilling()
     }
     else
     {
-    
         // Nullstiller kinosalen
         for (int i=1; i < RADER; i++)
         {
@@ -87,7 +207,7 @@ void nyForestilling()
                 sal[i][j] = "*";
             }
         }
-     
+
 		// forestillingsnavn med input som støtter "spaces"
         string input = "";
         cout << endl << "Hva heter forestillingen:\n>";
@@ -101,6 +221,7 @@ void nyForestilling()
         antall_redusertPris = 0;
         antall_fullPris = 0;
         antall_billett = 0;
+		totalInntekt = 0;
         
         for(int i=1; i < RADER; i++)
         {
@@ -108,7 +229,7 @@ void nyForestilling()
         }
     
         // Leser inn nytt navn for forestilling
-        
+        save();
         cout << endl;
     }
 }
@@ -172,6 +293,7 @@ void billettKjop()
             }
         }
     }
+	save();
     cout << endl;
 }
 
@@ -189,7 +311,6 @@ void ledigeSeter()
 		cout << endl;
 	}
 	cout << endl;
-	
 }
 
 // Viser billettinntekter for hver rad og totalt.
@@ -200,22 +321,22 @@ void billettInntekter()
     cout << "Antall redusert pris billetter: " << antall_redusertPris << endl;
     cout << "Antall full pris billetter: " << antall_fullPris << endl;
     cout << endl;
-    int totalInntekt = 0;
+    totalInntekt = 0;
     
 	// Løkke som går igjennom alle rader og beregner inntekt
     for (int i=1; i<RADER; i++)
     {
-        cout << "Rad" << i << "\t" << inntekt_rad[i] << "kr." << endl;
-        int tempInntekt = inntekt_rad[i];
-        totalInntekt = totalInntekt + tempInntekt;
-        
+        cout << "Rad" << i << "\t" << inntekt_rad[i] << "kr." << endl;     
     }
+	totalInntekt = (antall_redusertPris * 60) + (antall_fullPris * 90);
     cout << "Total \t" << totalInntekt << "kr." << endl << endl;
 }
+
 
 // Skjekker hvilket menypunkt som er valgt og kjører igang funksjonen for denne
 int main()
 {
+	open();
 	valg = meny();
     
 	// Løkke som lar bruker velge menypunkt
@@ -251,3 +372,11 @@ int main()
 }
 
 
+
+
+
+
+
+
+
+ 
