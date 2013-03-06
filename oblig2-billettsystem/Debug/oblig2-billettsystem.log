@@ -1,4 +1,4 @@
-﻿Build started 05.03.2013 23:49:28.
+﻿Build started 06.03.2013 00:58:00.
      1>Project "C:\Users\Mikael\workspace\Billettsystem-\oblig2-billettsystem\oblig2-billettsystem.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\oblig2-billettsystem.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -18,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.31
+Time Elapsed 00:00:00.59

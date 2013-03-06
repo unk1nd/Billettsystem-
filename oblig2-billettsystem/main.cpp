@@ -88,10 +88,14 @@ void nyForestilling()
             }
         }
      
-        
-        cout << endl << "Hva heter forestillingen:" << endl;
-        //getline(cin,forestilling);
-        //cin.ignore();
+		// forestillingsnavn med input som støtter "spaces"
+        string input = "";
+        cout << endl << "Hva heter forestillingen:\n>";
+		getline(cin, input);
+
+		// en fix for å få det til å fungere ordentlig
+		forestilling = input;
+		getline(cin, forestilling);
     
         // Tømmer priskalkulasjon
         antall_redusertPris = 0;
@@ -104,7 +108,7 @@ void nyForestilling()
         }
     
         // Leser inn nytt navn for forestilling
-        cin >> forestilling;
+        
         cout << endl;
     }
 }
